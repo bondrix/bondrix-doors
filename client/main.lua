@@ -8,7 +8,6 @@ AddEventHandler('bondrix-doors:client:onDoorRegister', function(id, door)
 end)
 
 function BondrixDoors.LockDoor(id)
-    GlobalState.doors[id].locked = true
     DoorSystemSetDoorState(id, 1)
 end
 RegisterNetEvent('bondrix-doors:client:onDoorLock')
@@ -17,7 +16,6 @@ AddEventHandler('bondrix-doors:client:onDoorLock', function(id)
 end)
 
 function BondrixDoors.UnlockDoor(id)
-    GlobalState.doors[id].locked = false
     DoorSystemSetDoorState(id, 0)
 end
 RegisterNetEvent('bondrix-doors:client:onDoorUnlock')
@@ -53,7 +51,6 @@ function BondrixDoors.GetClosestDoor()
 end
 
 RegisterCommand('door', function()
-    BondrixDoors = exports['bondrix-doors']:GetObject()
     local id = BondrixDoors.GetClosestDoor()
     if not id then return end
 

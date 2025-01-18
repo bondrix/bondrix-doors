@@ -7,7 +7,6 @@ function BondrixDoors.RegisterDoors(doors)
     end
 
     GlobalState.doors = currentDoors
-    print(json.encode(GlobalState.doors))
 end
 RegisterNetEvent('bondrix-doors:server:onDoorsRegister')
 AddEventHandler('bondrix-doors:server:onDoorsRegister', function(doors)
@@ -15,6 +14,9 @@ AddEventHandler('bondrix-doors:server:onDoorsRegister', function(doors)
 end)
 
 function BondrixDoors.LockDoor(id)
+    local doors = GlobalState.doors
+    doors[id].locked = true
+    GlobalState.doors = doors
     TriggerClientEvent('bondrix-doors:client:onDoorLock', -1, id)
 end
 RegisterNetEvent('bondrix-doors:server:onDoorLock')
@@ -23,6 +25,9 @@ AddEventHandler('bondrix-doors:server:onDoorLock', function(id)
 end)
 
 function BondrixDoors.UnlockDoor(id)
+    local doors = GlobalState.doors
+    doors[id].locked = false
+    GlobalState.doors = doors
     TriggerClientEvent('bondrix-doors:client:onDoorUnlock', -1, id)
 end
 RegisterNetEvent('bondrix-doors:server:onDoorUnlock')
